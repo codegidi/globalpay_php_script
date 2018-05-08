@@ -1,6 +1,7 @@
 <?php
+include 'Curl_helper.php';
 
-class GlobalpayTransaction {
+class GlobalPay_Transaction {
 
     public $token;
     function __construct($access_token) {

@@ -1,8 +1,8 @@
 <?php
 
-include 'helper/Curl_helper.php';
+include 'Curl_helper.php';
 
-class GlobalpayAuthentication {
+class GlobalPay_Authentication {
 
     function Client($username,$password,$clientId,$clientSecret){
         $fields = array( 'username'=>$username,
