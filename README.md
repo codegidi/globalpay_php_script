@@ -19,7 +19,7 @@ Clone "github.com/codegidi/globalpay_php_script"
 	include "globalpay_php_script/Authentication.php"
 
 	$clientAuth = new GlobalPay_Authentication();
-	$clientAuthResponse = $clientAuth->Client({username},{password},{client id},{client secret})
+	$clientAuthResponse = $clientAuth->Client({client id},{client secret})
 
 	if(!isset($clientAuthResponse['error'])){
 		$access_token = $clientAuthResponse['access_token'];
