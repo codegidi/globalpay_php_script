@@ -4,8 +4,10 @@ include 'Curl_helper.php';
 class GlobalPay_Transaction {
 
     public $token;
-    function __construct($access_token) {
+    public $isLive;
+    function __construct($access_token,$isLive = false) {
         $this->token = $access_token;
+        $this->isLive = $isLive;
     }
 
     function initiation($returnurl,$merchantreference,$description,$totalamount,$currencycode,$customerEmail,$customerNumber,$customerFirstName,$customerLastName){
@@ -26,7 +28,7 @@ class GlobalPay_Transaction {
             'currencycode'=>$currencycode,
             'customer'=>$customer);
         $callClient = new Curl_helper();
-        return json_decode($callClient->post("/api/v3/Payment/SetRequest",$fields,$this->token),true);
+        return json_decode($callClient->post("/api/v3/Payment/SetRequest",$fields,$this->token,$this->isLive),true);
     }
 
     function verification($merchantid,$merchantreference,$transactionreference){
@@ -35,7 +37,7 @@ class GlobalPay_Transaction {
             'transactionreference'=> $transactionreference);
 
         $callClient = new Curl_helper();
-        return json_decode($callClient->post("/api/v3/Payment/Retrieve",$fields,$this->token),true);
+        return json_decode($callClient->post("/api/v3/Payment/Retrieve",$fields,$this->token,$this->isLive),true);
 
     }
 }

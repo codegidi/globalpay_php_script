@@ -1,14 +1,22 @@
 <?php
 
-define('BASE_URL','http://globalpay.azurewebsites.net');
-define('AUTH_URL','http://globalpayauthserver.azurewebsites.net');
+define('BASE_URL_STAGING','http://globalpay.azurewebsites.net');
+define('AUTH_URL_STAGING','http://globalpayauthserver.azurewebsites.net');
+define('BASE_URL_LIVE','http://globalpay.azurewebsites.net');
+define('AUTH_URL_LIVE','http://globalpayauthserver.azurewebsites.net');
+
+
 
 class Curl_helper {
 
-    function post($endPoint,$body,$accessKey){
+    function post($endPoint,$body,$accessKey,$isLive){
         $ch = curl_init();
+        $baseURL = BASE_URL_STAGING;
+        if($isLive){
+            $baseURL = BASE_URL_LIVE;
+        }
         $payload = json_encode( array( "customer"=> $body ) );
-        curl_setopt($ch,CURLOPT_URL,BASE_URL . $endPoint);
+        curl_setopt($ch,CURLOPT_URL,$baseURL . $endPoint);
         curl_setopt($ch,CURLOPT_POST, 1);
         curl_setopt($ch,CURLOPT_POSTFIELDS,$payload);
         curl_setopt($ch,CURLOPT_RETURNTRANSFER, true);
@@ -29,15 +37,20 @@ class Curl_helper {
         }
     }
 
-    function postForm($body){
+    function postForm($body,$isLive){
         $ch = curl_init();
+
+        $baseURL = AUTH_URL_STAGING;
+        if($isLive){
+            $baseURL = AUTH_URL_LIVE;
+        }
 
         $postvars = '';
         foreach($body as $key=>$value) {
             $postvars .= $key . "=" . $value . "&";
         }
 
-        curl_setopt($ch,CURLOPT_URL,AUTH_URL);
+        curl_setopt($ch,CURLOPT_URL,$baseURL);
         curl_setopt($ch,CURLOPT_POST, 1);
         curl_setopt($ch,CURLOPT_POSTFIELDS,$postvars);
         curl_setopt($ch,CURLOPT_RETURNTRANSFER, true);
