@@ -1,9 +1,9 @@
 <?php
 
 define('BASE_URL_STAGING','http://globalpay.azurewebsites.net');
-define('AUTH_URL_STAGING','http://globalpayauthserver.azurewebsites.net');
+define('AUTH_URL_STAGING','http://globalpayauthserver.azurewebsites.net/connect/token');
 define('BASE_URL_LIVE','http://globalpay.azurewebsites.net');
-define('AUTH_URL_LIVE','http://globalpayauthserver.azurewebsites.net');
+define('AUTH_URL_LIVE','http://globalpayauthserver.azurewebsites.net/connect/token');
 
 
 
@@ -15,7 +15,7 @@ class Curl_helper {
         if($isLive){
             $baseURL = BASE_URL_LIVE;
         }
-        $payload = json_encode( array( "customer"=> $body ) );
+        $payload = json_encode($body);
         curl_setopt($ch,CURLOPT_URL,$baseURL . $endPoint);
         curl_setopt($ch,CURLOPT_POST, 1);
         curl_setopt($ch,CURLOPT_POSTFIELDS,$payload);

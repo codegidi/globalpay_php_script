@@ -1,6 +1,4 @@
 <?php
-include 'Curl_helper.php';
-
 class GlobalPay_Transaction {
 
     public $token;
@@ -10,15 +8,20 @@ class GlobalPay_Transaction {
         $this->isLive = $isLive;
     }
 
-    function initiation($returnurl,$merchantreference,$description,$totalamount,$currencycode,$customerEmail,$customerNumber,$customerFirstName,$customerLastName){
+    function initiation($merchantid,$returnurl,$merchantreference,$description,$totalamount,$currencycode,$customerEmail,$customerNumber,$customerFirstName,$customerLastName){
 
         $customer = array('email'=> $customerEmail,
             'firstname'=> $customerFirstName,
             'lastname'=> $customerLastName,
             'mobile'=>$customerNumber);
 
+        $product = array('name'=> $description,
+            'unitprice'=> $totalamount,
+            'quantity'=>"1");
+
         $fields = array( 'returnurl'=>$returnurl,
-            'customerip'=>'',
+            'customerip'=>'127.0.0.1',
+            'merchantid'=>$merchantid,
             'merchantreference'=>$merchantreference,
             'description'=>$description,
             'totalamount'=>$totalamount,
@@ -26,8 +29,10 @@ class GlobalPay_Transaction {
             'transactionType'=>'Payment',
             'connectionmode'=>'redirect',
             'currencycode'=>$currencycode,
-            'customer'=>$customer);
+            'customer'=>$customer,
+            'product'=>array($product));
         $callClient = new Curl_helper();
+
         return json_decode($callClient->post("/api/v3/Payment/SetRequest",$fields,$this->token,$this->isLive),true);
     }
 
@@ -37,7 +42,7 @@ class GlobalPay_Transaction {
             'transactionreference'=> $transactionreference);
 
         $callClient = new Curl_helper();
-        return json_decode($callClient->post("/api/v3/Payment/Retrieve",$fields,$this->token,$this->isLive),true);
+        return $callClient->post("/api/v3/Payment/Retrieve",$fields,$this->token,$this->isLive);
 
     }
 }

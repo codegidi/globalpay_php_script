@@ -16,10 +16,10 @@ Clone "github.com/codegidi/globalpay_php_script"
 
 
 #### Client Authentication
-	include "globalpay_php_script/Authentication.php"
+	include "globalpay/Authentication.php";
 
 	$clientAuth = new GlobalPay_Authentication({optional BOOL isLive : #true for for live enviroment and false for staging default value false});
-	$clientAuthResponse = $clientAuth->Client({client id},{client secret})
+	$clientAuthResponse = $clientAuth->Client({client id},{client secret});
 
 	if(!isset($clientAuthResponse['error'])){
 		$access_token = $clientAuthResponse['access_token'];
@@ -30,10 +30,10 @@ Clone "github.com/codegidi/globalpay_php_script"
 
 
 ##### Transaction Initialization
-    include "globalpay_php_script/Transaction.php"
+    include "globalpay/Transaction.php";
 
-	$transaction = new GlobalPay_Transaction({Access_token},{optional BOOL isLive : #true for for live enviroment and false for staging default value false});
-	$transactionResponse = $transactionInit->initiation({return url},{merchant reference},{description},{total amount},{currency code},{customer email},{customer number},{customer firstname},{customer lastname})
+	$transactionInit = new GlobalPay_Transaction({Access_token},{optional BOOL isLive : #true for for live enviroment and false for staging default value false});
+	$transactionResponse = $transactionInit->initiation({merchant id},{return url},{merchant reference},{description},{total amount in minor},{currency code i.e NGN for naira},{customer email},{customer number},{customer firstname},{customer lastname});
 
 	if(!isset($transactionResponse['error'])){
 		header("location:" . $transactionResponse['redirectUri '])
@@ -43,7 +43,7 @@ Clone "github.com/codegidi/globalpay_php_script"
 
 
 ##### Transaction Verification
-    include "globalpay_php_script/Transaction.php"
+    include "globalpay/Transaction.php";
 
 	$transaction = new GlobalPay_Transaction({Access_token},{optional BOOL isLive : #true for for live enviroment and false for staging default value false});
 	$transactionResponse = $transactionInit->verification({merchant id}, {merchant reference}, {transaction reference});
