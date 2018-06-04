@@ -15,7 +15,7 @@ if (!isset($clientAuthResponse['error'])) {
 
 
 $transaction = new GlobalPay_Transaction($access_token);
-$transactionResponse = $transaction->verification("1","1234567890",$_GET['transactionreference']);
+$transactionResponse = $transaction->verification("1","1117",$_GET['transactionreference']);
 
 print_r($transactionResponse);
 

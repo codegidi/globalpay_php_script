@@ -16,7 +16,7 @@ if (!isset($clientAuthResponse['error'])) {
 
 //Register your transaction and redirect to globalpay
 $transactionInit = new GlobalPay_Transaction($access_token);
-$transactionResponse = $transactionInit->initiation("1","http://mdt.com.ng/globalpay/Test_redirect.php", rand("00000", "99999"), "my test", "50000", "NGN", "codegidi@globalpay.com", "07088764887", "may", "codegidi");
+$transactionResponse = $transactionInit->initiation("1","http://mdt.com.ng/globalpay/Test_redirect.php", rand("00000", "99999"), "my test", "50000", "NGN", "codegidi@globalpay.com", "0701231234", "may", "codegidi");
 
 if ($transactionResponse['status']['statusCode']=="201") {
     header("location:" . $transactionResponse['redirectUri']);
