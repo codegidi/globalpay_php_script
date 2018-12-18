@@ -1,10 +1,9 @@
 <?php
 
-define('BASE_URL_STAGING','http://globalpay.azurewebsites.net');
-define('AUTH_URL_STAGING','http://globalpayauthserver.azurewebsites.net/connect/token');
-define('BASE_URL_LIVE','http://globalpay.azurewebsites.net');
-define('AUTH_URL_LIVE','http://globalpayauthserver.azurewebsites.net/connect/token');
-
+define('BASE_URL_STAGING','https://gpaygatewayapi.azurewebsites.net/v2/PaymentGateway/PaymentGatewayCapture');
+define('AUTH_URL_STAGING','https://gpayauthorisation.azurewebsites.net/');
+define('BASE_URL_LIVE','https://api.globalpay.com.ng/v2/PaymentGateway/PaymentGatewayCapture');
+define('AUTH_URL_LIVE','https://auth.globalpay.com.ng');
 
 
 class Curl_helper {
