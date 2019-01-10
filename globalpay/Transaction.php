@@ -33,7 +33,7 @@ class GlobalPay_Transaction {
             'product'=>array($product));
         $callClient = new Curl_helper();
 
-        return json_decode($callClient->post("/api/v3/Payment/SetRequest",$fields,$this->token,$this->isLive),true);
+        return json_decode($callClient->post("/SetRequest",$fields,$this->token,$this->isLive),true);
     }
 
     function verification($merchantid,$merchantreference,$transactionreference){
@@ -42,7 +42,7 @@ class GlobalPay_Transaction {
             'transactionreference'=> $transactionreference);
 
         $callClient = new Curl_helper();
-        return $callClient->post("/api/v3/Payment/Retrieve",$fields,$this->token,$this->isLive);
+        return $callClient->post("/Retrieve",$fields,$this->token,$this->isLive);
 
     }
 }
